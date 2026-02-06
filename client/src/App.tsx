@@ -11,6 +11,9 @@ import WhyApplicationsFail from "./pages/WhyApplicationsFail";
 import WhoIsThisFor from "./pages/WhoIsThisFor";
 import WhatWeDo from "./pages/WhatWeDo";
 import Contact from "./pages/Contact";
+import Quiz from "./pages/Quiz";
+import Booking from "./pages/Booking";
+import LeadMagnet from "./pages/LeadMagnet";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -24,6 +27,9 @@ function Router() {
       <Route path={"/who-is-this-for"} component={WhoIsThisFor} />
       <Route path={"/what-we-do"} component={WhatWeDo} />
       <Route path={"/contact"} component={Contact} />
+      <Route path={"/quiz"} component={Quiz} />
+      <Route path={"/booking"} component={Booking} />
+      <Route path={"/guide"} component={LeadMagnet} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

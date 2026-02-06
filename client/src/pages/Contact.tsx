@@ -1,12 +1,13 @@
 /**
  * DESIGN: "Dark Authority" — Contact / Get Funding Clarity page
- * Calm, confident CTA with a simple form
+ * Calm, confident CTA with a simple form — now connected to backend
  */
 
 import { useState } from "react";
-import { ArrowRight, MessageCircle, Mail, Send } from "lucide-react";
+import { ArrowRight, MessageCircle, Mail, Send, Loader2 } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import GoldLine from "@/components/GoldLine";
+import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 export default function Contact() {
@@ -18,11 +19,26 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const leadMutation = trpc.lead.submit.useMutation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, this would send to a backend
-    setSubmitted(true);
-    toast.success("Message received. We'll be in touch shortly.");
+    if (!formData.name || !formData.email) {
+      toast.error("Please enter your name and email.");
+      return;
+    }
+
+    try {
+      await leadMutation.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || undefined,
+        source: "contact",
+      });
+      setSubmitted(true);
+    } catch {
+      toast.error("Something went wrong. Please try again or email us directly at hello@fundingclarity.co.uk");
+    }
   };
 
   return (
@@ -66,7 +82,7 @@ export default function Contact() {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                       <label className="block text-sm text-warm-white/60 mb-2" style={{ fontFamily: "var(--font-display)" }}>
-                        Your name
+                        Your name *
                       </label>
                       <input
                         type="text"
@@ -79,7 +95,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <label className="block text-sm text-warm-white/60 mb-2" style={{ fontFamily: "var(--font-display)" }}>
-                        Email address
+                        Email address *
                       </label>
                       <input
                         type="email"
@@ -107,7 +123,6 @@ export default function Contact() {
                         Tell us about your funding needs
                       </label>
                       <textarea
-                        required
                         rows={5}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -117,11 +132,18 @@ export default function Contact() {
                     </div>
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-dark font-semibold rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300 w-full sm:w-auto justify-center"
+                      disabled={leadMutation.isPending}
+                      className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-dark font-semibold rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300 w-full sm:w-auto justify-center disabled:opacity-50"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
-                      Send Message
-                      <Send size={18} />
+                      {leadMutation.isPending ? (
+                        <Loader2 size={18} className="animate-spin" />
+                      ) : (
+                        <>
+                          Send Message
+                          <Send size={18} />
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>
@@ -145,6 +167,45 @@ export default function Contact() {
             {/* Info sidebar */}
             <SectionReveal delay={0.2}>
               <div className="lg:sticky lg:top-28 space-y-10">
+                {/* Quick actions */}
+                <div className="glass-card p-8 rounded-sm">
+                  <h3 className="text-lg font-semibold mb-4" style={{ fontFamily: "var(--font-display)" }}>
+                    Other ways to connect
+                  </h3>
+                  <div className="space-y-3">
+                    <a
+                      href="/quiz"
+                      className="flex items-center gap-3 text-sm text-warm-white/60 hover:text-gold transition-colors p-3 glass-card rounded-sm"
+                    >
+                      <ArrowRight size={16} className="text-gold shrink-0" />
+                      <div>
+                        <span className="text-warm-white font-medium block">Take the Funding Quiz</span>
+                        <span className="text-warm-white/40 text-xs">2 minutes. Get a personalised assessment.</span>
+                      </div>
+                    </a>
+                    <a
+                      href="/booking"
+                      className="flex items-center gap-3 text-sm text-warm-white/60 hover:text-gold transition-colors p-3 glass-card rounded-sm"
+                    >
+                      <ArrowRight size={16} className="text-gold shrink-0" />
+                      <div>
+                        <span className="text-warm-white font-medium block">Book a Clarity Call</span>
+                        <span className="text-warm-white/40 text-xs">15 minutes. Free. No obligation.</span>
+                      </div>
+                    </a>
+                    <a
+                      href="/guide"
+                      className="flex items-center gap-3 text-sm text-warm-white/60 hover:text-gold transition-colors p-3 glass-card rounded-sm"
+                    >
+                      <ArrowRight size={16} className="text-gold shrink-0" />
+                      <div>
+                        <span className="text-warm-white font-medium block">Download the Free Guide</span>
+                        <span className="text-warm-white/40 text-xs">The 4 questions every founder should answer.</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
                 {/* DM Option */}
                 <div className="glass-card p-8 rounded-sm">
                   <div className="flex items-center gap-3 mb-4">
@@ -154,13 +215,12 @@ export default function Contact() {
                     </h3>
                   </div>
                   <p className="text-warm-white/60 leading-relaxed mb-6">
-                    If you'd rather have a quick, informal chat first, send us a direct
-                    message on social media. Same founders, same honesty, less formal.
+                    Send us a direct message on social media. Same founders, same honesty, less formal.
                   </p>
                   <div className="space-y-3">
                     <a
                       href="#"
-                      onClick={(e) => { e.preventDefault(); toast.info("Social media links coming soon."); }}
+                      onClick={(e) => { e.preventDefault(); toast.info("LinkedIn link coming soon — add your profile URL in settings."); }}
                       className="flex items-center gap-3 text-sm text-warm-white/50 hover:text-gold transition-colors"
                     >
                       <span className="w-8 h-8 rounded-sm bg-dark-elevated flex items-center justify-center">
@@ -170,7 +230,7 @@ export default function Contact() {
                     </a>
                     <a
                       href="#"
-                      onClick={(e) => { e.preventDefault(); toast.info("Social media links coming soon."); }}
+                      onClick={(e) => { e.preventDefault(); toast.info("X link coming soon — add your profile URL in settings."); }}
                       className="flex items-center gap-3 text-sm text-warm-white/50 hover:text-gold transition-colors"
                     >
                       <span className="w-8 h-8 rounded-sm bg-dark-elevated flex items-center justify-center">

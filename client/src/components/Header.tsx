@@ -8,8 +8,8 @@ const navLinks = [
   { href: "/about", label: "Our Story" },
   { href: "/what-we-do", label: "What We Do" },
   { href: "/why-applications-fail", label: "Why Apps Fail" },
-  { href: "/who-is-this-for", label: "Is This For You?" },
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/quiz", label: "Funding Quiz" },
 ];
 
 export default function Header() {
@@ -107,6 +107,18 @@ export default function Header() {
                   </span>
                 </Link>
               ))}
+              <Link href="/guide">
+                <span
+                  className={`block px-4 py-3 text-base transition-colors duration-300 ${
+                    location === "/guide"
+                      ? "text-gold"
+                      : "text-warm-white/70 hover:text-warm-white"
+                  }`}
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  Free Guide
+                </span>
+              </Link>
               <Link href="/contact">
                 <span className="mt-4 block text-center px-5 py-3 bg-gold text-dark text-sm font-semibold rounded-sm tracking-wide" style={{ fontFamily: "var(--font-display)" }}>
                   Get Funding Clarity

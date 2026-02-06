@@ -5,10 +5,12 @@
  * Font: Space Grotesk (display), Source Serif 4 (body), Space Mono (labels)
  */
 
+import { useAuth } from "@/_core/hooks/useAuth";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "wouter";
-import { ArrowRight, MessageCircle, CheckCircle, XCircle, ChevronDown } from "lucide-react";
+import { ArrowRight, MessageCircle, CheckCircle, XCircle, ChevronDown, Play, Download } from "lucide-react";
+import { useState } from "react";
 import SectionReveal from "@/components/SectionReveal";
 import GoldLine from "@/components/GoldLine";
 import { useScrollAnimation, useCountUp } from "@/hooks/useScrollAnimation";
@@ -18,6 +20,8 @@ const HERO_BG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXU
 const FOUNDER_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-2_1770386059000_na1fn_Zm91bmRlci1zdG9yeQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTJfMTc3MDM4NjA1OTAwMF9uYTFmbl9abTkxYm1SbGNpMXpkRzl5ZVEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=hAXmlFC-zOP0kvhgEb1Adrgh4-gBuO-nWfkhgZIFyMf7WHZh04SgH82ZQGi3b1KJdu-gBn-hPgw7Pj1b~7FplhrMpDxk64qQxr8G1D0kF6ydq2g5Y79ZJCS79BQ-tsEElIn2NItEcyzxEphwo1ijRWPSw2jGYO~6ooXObo1ZiArsa18nfd5LmzNjrnxjYykSKEBoqwijC8F3dwccBhjZAr-~VC3ERYomeYtCYNjBbTfzlavDOin2YeNYX5fItrKXfsGXuJYCEYuDLCdPKM1p3Cx7qh2y6IIPzsKYiP~-ujlY9Up1fSvKSnZH14L1fwM5nSS7bG5d9P5SJ2efjsA6fQ__";
 
 const FRAMEWORK_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-3_1770386053000_na1fn_ZnJhbWV3b3JrLWFic3RyYWN0.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTNfMTc3MDM4NjA1MzAwMF9uYTFmbl9abkpoYldWM2IzSnJMV0ZpYzNSeVlXTjAuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=NppkdQzXXlvQcqnvqx1I7F-XhFgpqvEkBmbVav80nrlEalC0JVxTfUHi6BKOTne4G3FMbwGPcWoit2J0qa6-5fjACJhHtO8D4k893zukHeGn-z0ljQ4gLcmbwFrj2SEXPZXAclFO3QfagZ1xZnBUDpEPR80D0Kd7zyyR0H6~2hodcCv3fnHFVv1M0muB8nLSqwZz5Jy9D9QxcbSt-zVJm1cxD-kIkpoRzNUHRVqsF4Iza2JjnTOy0Z1fNcul0Eh3K2jef3-whPUNRVkNr8i3HO5L~3E-lN-OmIBCrC00rVVheXxSxhplpn0S~1N5lScoCVNCzhWyXMebf2L7bqclsw__";
+
+const VIDEO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663048135071/yBxqjygSaPmTPTEF.mp4";
 
 const CTA_BG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-4_1770386057000_na1fn_Y3RhLWJn.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTRfMTc3MDM4NjA1NzAwMF9uYTFmbl9ZM1JoTFdKbi5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=UcnT-KEiezvfQnL2rHt3MrUFQTCpIrmYTmujVgSs45NMfiTN2fBvYDDwTLYEmXg4a2eTUELKI1exXZXoN7K7ak~JaNpvbFFKmcEZvpWliMFmayRWkq-hOHq7xeyln0q~BQzKfjokzk5qZR9aTrxuIqssWSXRRS~-GyXGT~u4X6nY2bkibDe4DZckYTkVX1ePSSzeXnRZ~KLC4jCq8~TjoOAdGpwkpyozfKiYyGPkFtNP3RHqSzUjb~2M73ucm3bXW9ai4dImNa6SB6GDPy3qJiwJYOHdrr3mtOcLFdEqv2BtWu4DyM9ZGAQtKyMOwhKEuMDWwK-PDVLXRjNt6aJ6Ng__";
 
@@ -32,6 +36,10 @@ const staggerItem = {
 };
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation(0.3);
   const smeCount = useCountUp(82, 2000, statsVisible);
   const declineRate = useCountUp(47, 2000, statsVisible);
@@ -205,6 +213,48 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          EXPLAINER VIDEO — 30s animated motion graphics
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="py-20 lg:py-28">
+        <div className="container">
+          <SectionReveal>
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-10">
+                <span
+                  className="text-xs uppercase tracking-[0.3em] text-gold-dim mb-4 block"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                >
+                  Watch — 30 Seconds
+                </span>
+                <h2
+                  className="text-3xl sm:text-4xl font-bold leading-tight"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  The problem. <span className="text-gold">The solution.</span>
+                </h2>
+              </div>
+              <div className="relative aspect-video rounded-sm overflow-hidden glass-card">
+                <video
+                  className="w-full h-full object-cover"
+                  controls
+                  preload="metadata"
+                  poster=""
+                >
+                  <source src={VIDEO_URL} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p className="text-center text-warm-white/40 text-sm mt-4">
+                No sound? Turn on your speakers for the full experience.
+              </p>
+            </div>
+          </SectionReveal>
+        </div>
+      </section>
+
+      <GoldLine className="container" />
 
       {/* ═══════════════════════════════════════════════════════════
           FOUNDER STORY — Authentic narrative with asymmetric layout
@@ -675,14 +725,14 @@ export default function Home() {
                 where you really stand and what your best next steps are.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact">
+                <Link href="/quiz">
                   <motion.span
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                     className="inline-flex items-center gap-3 px-10 py-5 bg-gold text-dark font-semibold text-lg rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Get Funding Clarity
+                    Take the Funding Quiz
                     <ArrowRight size={20} />
                   </motion.span>
                 </Link>
@@ -694,7 +744,29 @@ export default function Home() {
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     <MessageCircle size={20} />
-                    Send Us a DM
+                    Request a Quote
+                  </motion.span>
+                </Link>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
+                <Link href="/guide">
+                  <motion.span
+                    whileHover={{ scale: 1.02 }}
+                    className="inline-flex items-center gap-2 text-warm-white/50 hover:text-gold transition-colors text-sm"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    <Download size={14} />
+                    Download the free guide
+                  </motion.span>
+                </Link>
+                <Link href="/booking">
+                  <motion.span
+                    whileHover={{ scale: 1.02 }}
+                    className="inline-flex items-center gap-2 text-warm-white/50 hover:text-gold transition-colors text-sm"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    <ArrowRight size={14} />
+                    Book a clarity call
                   </motion.span>
                 </Link>
               </div>
