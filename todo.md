@@ -42,3 +42,16 @@
 - [ ] Add contact email (CONTACT_EMAIL) via Secrets panel
 - [ ] Add LinkedIn and X/Twitter profile URLs
 - [ ] Connect fundingclarity.co.uk domain
+
+## Phase 3 — Render Deployment + GitHub
+- [x] Adjust build output for Render (dist/public for static, dist for server)
+- [x] Verify npm install && npm run build works
+- [x] Verify npm run start works
+- [x] Push code to GitHub repo (fundingclarity.co.uk)
+
+## Phase 4 — Video Fixes
+- [x] Regenerate voiceover with proper British English (England) accent — NOT American
+- [x] Fix spelling mistakes in clip 3 (garbled text)
+- [x] Add subtle background music to final video
+- [x] Stitch all clips with new voiceover + music
+- [x] Deliver final video for YouTube upload
