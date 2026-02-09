@@ -1,19 +1,18 @@
 /**
  * DESIGN: "Dark Authority" — Cinematic Impact
- * About / Our Story page — deep narrative with cinematic imagery
+ * About / Our Story page — alternating dark/white/gold sections
  */
 
 import { Link } from "wouter";
 import { ArrowRight, Quote } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
-import GoldLine from "@/components/GoldLine";
 
 const FOUNDER_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-2_1770386059000_na1fn_Zm91bmRlci1zdG9yeQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTJfMTc3MDM4NjA1OTAwMF9uYTFmbl9abTkxYm1SbGNpMXpkRzl5ZVEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=hAXmlFC-zOP0kvhgEb1Adrgh4-gBuO-nWfkhgZIFyMf7WHZh04SgH82ZQGi3b1KJdu-gBn-hPgw7Pj1b~7FplhrMpDxk64qQxr8G1D0kF6ydq2g5Y79ZJCS79BQ-tsEElIn2NItEcyzxEphwo1ijRWPSw2jGYO~6ooXObo1ZiArsa18nfd5LmzNjrnxjYykSKEBoqwijC8F3dwccBhjZAr-~VC3ERYomeYtCYNjBbTfzlavDOin2YeNYX5fItrKXfsGXuJYCEYuDLCdPKM1p3Cx7qh2y6IIPzsKYiP~-ujlY9Up1fSvKSnZH14L1fwM5nSS7bG5d9P5SJ2efjsA6fQ__";
 
 export default function About() {
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
-      {/* Page Hero */}
+      {/* Page Hero — DARK */}
       <section className="py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
@@ -36,16 +35,14 @@ export default function About() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* The Full Story */}
-      <section className="py-20 lg:py-28">
+      {/* The Full Story — WHITE */}
+      <section className="section-light py-20 lg:py-28">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
             {/* Narrative */}
             <div className="lg:col-span-3">
               <SectionReveal>
-                <div className="space-y-6 text-warm-white/70 leading-relaxed text-lg">
+                <div className="space-y-6 text-dark/70 leading-relaxed text-lg">
                   <p>
                     A few years ago, we were running a profitable business. Revenue was growing.
                     The team was expanding. We had a clear plan for the next stage of growth and
@@ -64,9 +61,9 @@ export default function About() {
               </SectionReveal>
 
               <SectionReveal className="mt-12">
-                <div className="border-l-2 border-gold/30 pl-8 py-4">
-                  <Quote size={24} className="text-gold/40 mb-4" />
-                  <p className="text-2xl text-warm-white/90 leading-relaxed italic" style={{ fontFamily: "var(--font-body)" }}>
+                <div className="border-l-2 border-gold/50 pl-8 py-4">
+                  <Quote size={24} className="text-gold-dim mb-4" />
+                  <p className="text-2xl text-dark leading-relaxed italic" style={{ fontFamily: "var(--font-body)" }}>
                     "We sat in that meeting room wondering — if we can't get funded with a profitable
                     business and a solid plan, what chance does anyone else have?"
                   </p>
@@ -74,7 +71,7 @@ export default function About() {
               </SectionReveal>
 
               <SectionReveal className="mt-12">
-                <div className="space-y-6 text-warm-white/70 leading-relaxed text-lg">
+                <div className="space-y-6 text-dark/70 leading-relaxed text-lg">
                   <p>
                     So we started digging. We spoke to other founders. We spoke to brokers. We spoke
                     to lenders directly. And we discovered something that changed everything: the
@@ -85,7 +82,7 @@ export default function About() {
                     Not because they're doing anything wrong — but because nobody tells them what right
                     looks like.
                   </p>
-                  <p className="text-warm-white text-xl font-medium" style={{ fontFamily: "var(--font-display)" }}>
+                  <p className="text-dark text-xl font-medium" style={{ fontFamily: "var(--font-display)" }}>
                     That's the gap we decided to fill.
                   </p>
                   <p>
@@ -106,7 +103,7 @@ export default function About() {
             <div className="lg:col-span-2">
               <SectionReveal delay={0.2}>
                 <div className="sticky top-28">
-                  <div className="aspect-[3/4] overflow-hidden rounded-sm mb-8">
+                  <div className="aspect-[3/4] overflow-hidden rounded-sm mb-8 shadow-xl">
                     <img
                       src={FOUNDER_IMG}
                       alt="Founders of Funding Clarity"
@@ -125,11 +122,11 @@ export default function About() {
                       { title: "Clarity", desc: "Plain English. No jargon. No small print." },
                       { title: "Respect", desc: "Your time matters. We don't waste it." },
                     ].map((value, i) => (
-                      <div key={i} className="border-l border-gold/20 pl-4">
-                        <h4 className="text-warm-white font-semibold text-sm mb-1" style={{ fontFamily: "var(--font-display)" }}>
+                      <div key={i} className="border-l border-gold/30 pl-4">
+                        <h4 className="text-dark font-semibold text-sm mb-1" style={{ fontFamily: "var(--font-display)" }}>
                           {value.title}
                         </h4>
-                        <p className="text-warm-white/50 text-sm">{value.desc}</p>
+                        <p className="text-dark/60 text-sm">{value.desc}</p>
                       </div>
                     ))}
                   </div>
@@ -140,19 +137,19 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 lg:py-28 border-t border-white/5">
+      {/* CTA — GOLD */}
+      <section className="section-gold py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-dark" style={{ fontFamily: "var(--font-display)" }}>
                 Sound familiar?
               </h2>
-              <p className="text-lg text-warm-white/60 mb-10">
+              <p className="text-lg text-dark/70 mb-10">
                 If our story resonates, let's talk. We built this for founders like you.
               </p>
               <Link href="/contact">
-                <span className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-dark font-semibold rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300" style={{ fontFamily: "var(--font-display)" }}>
+                <span className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-warm-white font-semibold rounded-sm hover:bg-dark-elevated transition-all duration-300 shadow-lg" style={{ fontFamily: "var(--font-display)" }}>
                   Start a Conversation <ArrowRight size={18} />
                 </span>
               </Link>

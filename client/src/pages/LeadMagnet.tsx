@@ -1,6 +1,6 @@
 /**
  * Lead Magnet — Free guide download with email capture
- * "The 4 Questions Every SME Founder Should Answer Before Applying for Funding"
+ * Alternating dark/white sections
  */
 
 import { useState } from "react";
@@ -9,7 +9,6 @@ import { ArrowRight, Download, CheckCircle, Loader2, BookOpen } from "lucide-rea
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import SectionReveal from "@/components/SectionReveal";
-import GoldLine from "@/components/GoldLine";
 
 const GUIDE_PDF_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663048135071/NIHdNuqffjtFiJjV.pdf";
 
@@ -34,7 +33,6 @@ export default function LeadMagnet() {
         source: "lead_magnet",
       });
       setDownloaded(true);
-      // Trigger download
       const link = document.createElement("a");
       link.href = GUIDE_PDF_URL;
       link.download = "FundingClarity-4-Questions-Guide.pdf";
@@ -46,7 +44,7 @@ export default function LeadMagnet() {
 
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
-      {/* Header */}
+      {/* Header — DARK */}
       <section className="py-16 lg:py-24">
         <div className="container">
           <SectionReveal>
@@ -71,15 +69,14 @@ export default function LeadMagnet() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      <section className="py-16 lg:py-24">
+      {/* Content + Form — WHITE */}
+      <section className="section-light py-16 lg:py-24">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             {/* What's inside */}
             <SectionReveal>
               <h2
-                className="text-2xl font-bold mb-6"
+                className="text-2xl font-bold mb-6 text-dark"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 What's inside
@@ -88,7 +85,7 @@ export default function LeadMagnet() {
                 {[
                   {
                     title: "Question 1: What funding fits?",
-                    desc: "How to match your business to the right type of finance — and why most founders apply for the wrong product.",
+                    desc: "How to match your business to the right type of finance \u2014 and why most founders apply for the wrong product.",
                   },
                   {
                     title: "Question 2: When should you apply?",
@@ -109,22 +106,22 @@ export default function LeadMagnet() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="glass-card p-5 rounded-sm"
+                    className="bg-white border border-dark/10 p-5 rounded-sm shadow-sm"
                   >
-                    <h3 className="text-warm-white font-semibold mb-1" style={{ fontFamily: "var(--font-display)" }}>
+                    <h3 className="text-dark font-semibold mb-1" style={{ fontFamily: "var(--font-display)" }}>
                       {item.title}
                     </h3>
-                    <p className="text-warm-white/50 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="text-dark/50 text-sm leading-relaxed">{item.desc}</p>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="mt-8 glass-card p-5 rounded-sm border-gold/10">
+              <div className="mt-8 bg-gold/10 border border-gold/20 p-5 rounded-sm">
                 <div className="flex items-start gap-3">
                   <BookOpen size={20} className="text-gold mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-warm-white font-medium text-sm">Quick read. Real value.</p>
-                    <p className="text-warm-white/50 text-sm">
+                    <p className="text-dark font-medium text-sm">Quick read. Real value.</p>
+                    <p className="text-dark/50 text-sm">
                       Written in plain English by founders who've been through it.
                       No jargon, no fluff. Just the information you actually need.
                     </p>
@@ -136,11 +133,11 @@ export default function LeadMagnet() {
             {/* Download form */}
             <SectionReveal delay={0.2}>
               {!downloaded ? (
-                <div className="glass-card p-8 lg:p-10 rounded-sm sticky top-28">
+                <div className="bg-white border border-dark/10 p-8 lg:p-10 rounded-sm sticky top-28 shadow-lg">
                   <div className="flex items-center gap-3 mb-6">
                     <Download size={24} className="text-gold" />
                     <h3
-                      className="text-xl font-bold"
+                      className="text-xl font-bold text-dark"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
                       Download the free guide
@@ -149,39 +146,39 @@ export default function LeadMagnet() {
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                      <label className="text-sm text-warm-white/60 mb-1 block">Full Name *</label>
+                      <label className="text-sm text-dark/70 mb-1 block">Full Name *</label>
                       <input
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-dark border border-white/10 rounded-sm px-4 py-3 text-warm-white placeholder:text-warm-white/30 focus:border-gold/40 focus:outline-none transition-colors"
+                        className="w-full bg-white border border-dark/15 rounded-sm px-4 py-3 text-dark placeholder:text-dark/30 focus:border-gold focus:outline-none transition-colors shadow-sm"
                         placeholder="Your name"
                       />
                     </div>
                     <div>
-                      <label className="text-sm text-warm-white/60 mb-1 block">Email *</label>
+                      <label className="text-sm text-dark/70 mb-1 block">Email *</label>
                       <input
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-dark border border-white/10 rounded-sm px-4 py-3 text-warm-white placeholder:text-warm-white/30 focus:border-gold/40 focus:outline-none transition-colors"
+                        className="w-full bg-white border border-dark/15 rounded-sm px-4 py-3 text-dark placeholder:text-dark/30 focus:border-gold focus:outline-none transition-colors shadow-sm"
                         placeholder="you@company.co.uk"
                       />
                     </div>
                     <div>
-                      <label className="text-sm text-warm-white/60 mb-1 block">Company</label>
+                      <label className="text-sm text-dark/70 mb-1 block">Company</label>
                       <input
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full bg-dark border border-white/10 rounded-sm px-4 py-3 text-warm-white placeholder:text-warm-white/30 focus:border-gold/40 focus:outline-none transition-colors"
+                        className="w-full bg-white border border-dark/15 rounded-sm px-4 py-3 text-dark placeholder:text-dark/30 focus:border-gold focus:outline-none transition-colors shadow-sm"
                         placeholder="Your company"
                       />
                     </div>
 
-                    <p className="text-xs text-warm-white/30">
+                    <p className="text-xs text-dark/30">
                       We'll send you the guide and may follow up with helpful funding
                       insights. No spam. Unsubscribe anytime.
                     </p>
@@ -207,16 +204,16 @@ export default function LeadMagnet() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="glass-card p-8 lg:p-10 rounded-sm text-center"
+                  className="bg-white border border-dark/10 p-8 lg:p-10 rounded-sm text-center shadow-lg"
                 >
                   <CheckCircle size={48} className="text-gold mx-auto mb-4" />
                   <h3
-                    className="text-2xl font-bold mb-3"
+                    className="text-2xl font-bold mb-3 text-dark"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     Your guide is downloading.
                   </h3>
-                  <p className="text-warm-white/60 mb-6">
+                  <p className="text-dark/60 mb-6">
                     If the download didn't start automatically,{" "}
                     <a
                       href={GUIDE_PDF_URL}
@@ -227,8 +224,8 @@ export default function LeadMagnet() {
                     </a>
                     .
                   </p>
-                  <div className="border-t border-white/10 pt-6">
-                    <p className="text-warm-white/50 text-sm mb-4">
+                  <div className="border-t border-dark/10 pt-6">
+                    <p className="text-dark/50 text-sm mb-4">
                       Want personalised advice based on your specific situation?
                     </p>
                     <a

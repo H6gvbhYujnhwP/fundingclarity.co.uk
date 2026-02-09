@@ -1,12 +1,11 @@
 /**
  * DESIGN: "Dark Authority" — What We Do page
- * Deep dive into the 4-question framework
+ * Alternating dark/white/gold sections
  */
 
 import { Link } from "wouter";
 import { ArrowRight, Search, Clock, PoundSterling, Users } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
-import GoldLine from "@/components/GoldLine";
 
 const FRAMEWORK_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-3_1770386053000_na1fn_ZnJhbWV3b3JrLWFic3RyYWN0.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTNfMTc3MDM4NjA1MzAwMF9uYTFmbl9abkpoYldWM2IzSnJMV0ZpYzNSeVlXTjAuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=NppkdQzXXlvQcqnvqx1I7F-XhFgpqvEkBmbVav80nrlEalC0JVxTfUHi6BKOTne4G3FMbwGPcWoit2J0qa6-5fjACJhHtO8D4k893zukHeGn-z0ljQ4gLcmbwFrj2SEXPZXAclFO3QfagZ1xZnBUDpEPR80D0Kd7zyyR0H6~2hodcCv3fnHFVv1M0muB8nLSqwZz5Jy9D9QxcbSt-zVJm1cxD-kIkpoRzNUHRVqsF4Iza2JjnTOy0Z1fNcul0Eh3K2jef3-whPUNRVkNr8i3HO5L~3E-lN-OmIBCrC00rVVheXxSxhplpn0S~1N5lScoCVNCzhWyXMebf2L7bqclsw__";
 
@@ -44,7 +43,7 @@ const questions = [
 export default function WhatWeDo() {
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
-      {/* Page Hero */}
+      {/* Page Hero — DARK */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]">
           <img src={FRAMEWORK_IMG} alt="" className="w-full h-full object-cover" />
@@ -65,25 +64,58 @@ export default function WhatWeDo() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* The Framework */}
-      <section className="py-20 lg:py-28">
+      {/* Framework intro — WHITE */}
+      <section className="section-light py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
             <div className="max-w-3xl mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-dark" style={{ fontFamily: "var(--font-display)" }}>
                 The 4-question funding framework.
               </h2>
-              <p className="text-warm-white/60 leading-relaxed text-lg">
+              <p className="text-dark/60 leading-relaxed text-lg">
                 Most founders go into funding applications blind — hoping for the best,
                 preparing for the worst. Our framework replaces hope with knowledge.
               </p>
             </div>
           </SectionReveal>
 
+          {/* Questions 1 & 2 on white */}
           <div className="space-y-12 lg:space-y-16">
-            {questions.map((q, i) => (
+            {questions.slice(0, 2).map((q, i) => (
+              <SectionReveal key={i} delay={0.1}>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+                  <div className="lg:col-span-1">
+                    <span className="text-5xl font-bold text-gold/40 block" style={{ fontFamily: "var(--font-mono)" }}>
+                      {q.num}
+                    </span>
+                  </div>
+                  <div className="lg:col-span-11">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-10 h-10 rounded-sm bg-gold/15 flex items-center justify-center">
+                        <q.icon size={18} className="text-gold" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-dark" style={{ fontFamily: "var(--font-display)" }}>
+                        {q.question}
+                      </h3>
+                    </div>
+                    <div className="space-y-4 text-dark/70 leading-relaxed text-lg pl-14">
+                      <p>{q.answer}</p>
+                      <p className="text-dark/50">{q.detail}</p>
+                    </div>
+                  </div>
+                </div>
+                {i === 0 && <div className="h-px bg-dark/10 mt-12 lg:mt-16" />}
+              </SectionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Questions 3 & 4 — DARK */}
+      <section className="py-20 lg:py-28">
+        <div className="container">
+          <div className="space-y-12 lg:space-y-16">
+            {questions.slice(2).map((q, i) => (
               <SectionReveal key={i} delay={0.1}>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
                   <div className="lg:col-span-1">
@@ -106,28 +138,28 @@ export default function WhatWeDo() {
                     </div>
                   </div>
                 </div>
-                {i < questions.length - 1 && <GoldLine className="mt-12 lg:mt-16" />}
+                {i === 0 && <div className="h-px bg-white/5 mt-12 lg:mt-16" />}
               </SectionReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* What This Means */}
-      <section className="py-20 lg:py-28 border-t border-white/5">
+      {/* CTA — GOLD */}
+      <section className="section-gold py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-dark" style={{ fontFamily: "var(--font-display)" }}>
                 What this means for you.
               </h2>
-              <p className="text-lg text-warm-white/60 leading-relaxed mb-10">
+              <p className="text-lg text-dark/70 leading-relaxed mb-10">
                 You walk into every funding conversation knowing exactly where you stand.
                 No surprises. No wasted applications. No guesswork. Just a clear, honest
                 plan built around your specific business.
               </p>
               <Link href="/contact">
-                <span className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-dark font-semibold rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300" style={{ fontFamily: "var(--font-display)" }}>
+                <span className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-warm-white font-semibold rounded-sm hover:bg-dark-elevated transition-all duration-300 shadow-lg" style={{ fontFamily: "var(--font-display)" }}>
                   Get Your Funding Plan <ArrowRight size={18} />
                 </span>
               </Link>

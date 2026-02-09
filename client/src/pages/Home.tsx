@@ -1,10 +1,11 @@
 /**
  * DESIGN: "Dark Authority" — Cinematic Impact / Nano Banana Scroll-Stopper
- * Dark canvas (#09090B), warm gold (#E8B931) accent, massive typography,
- * theatrical scroll animations, floating glass cards, parallax depth.
+ * Alternating dark (#09090B), white (#F5F3EF), gold (#E8B931) sections
+ * for visual rhythm and scroll engagement.
  * Font: Space Grotesk (display), Source Serif 4 (body), Space Mono (labels)
  */
 
+import { useAuth } from "@/_core/hooks/useAuth";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "wouter";
@@ -35,6 +36,8 @@ const staggerItem = {
 };
 
 export default function Home() {
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation(0.3);
   const smeCount = useCountUp(82, 2000, statsVisible);
   const declineRate = useCountUp(47, 2000, statsVisible);
@@ -51,10 +54,9 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* ═══════════════════════════════════════════════════════════
-          HERO SECTION — Full viewport, cinematic dark with gold, parallax bg
+          HERO SECTION — DARK — Full viewport, cinematic with parallax
       ═══════════════════════════════════════════════════════════ */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Parallax background image */}
         <motion.div className="absolute inset-0" style={{ y: heroY }}>
           <motion.img
             src={HERO_BG}
@@ -66,7 +68,6 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/60 to-dark" />
         <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-transparent to-dark/70" />
 
-        {/* Decorative gold accent line — top */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -76,7 +77,6 @@ export default function Home() {
 
         <div className="container relative z-10 pt-24 pb-16">
           <div className="max-w-5xl">
-            {/* Label */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -90,7 +90,6 @@ export default function Home() {
               </span>
             </motion.div>
 
-            {/* Headline — split line reveal */}
             <div className="overflow-hidden mb-2">
               <motion.h1
                 initial={{ y: "100%" }}
@@ -114,7 +113,6 @@ export default function Home() {
               </motion.h1>
             </div>
 
-            {/* Subheadline */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -126,7 +124,6 @@ export default function Home() {
               finance — without the nonsense.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -159,7 +156,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -179,11 +175,11 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          STATS BAR — Social proof with count-up
+          STATS BAR — GOLD BACKGROUND — Social proof with count-up
       ═══════════════════════════════════════════════════════════ */}
-      <section className="border-y border-white/5 bg-dark-card">
+      <section className="section-gold">
         <div className="container" ref={statsRef}>
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/10">
             {[
               { value: `${smeCount}%`, label: "of UK SMEs struggle to access finance" },
               { value: `${declineRate}%`, label: "of bank applications are declined" },
@@ -197,12 +193,12 @@ export default function Home() {
                 className="py-8 sm:py-10 px-6 text-center"
               >
                 <span
-                  className="block text-3xl sm:text-4xl font-bold text-gold mb-2"
+                  className="block text-3xl sm:text-4xl font-bold text-dark mb-2"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {stat.value}
                 </span>
-                <span className="text-sm text-warm-white/50">{stat.label}</span>
+                <span className="text-sm text-dark/70">{stat.label}</span>
               </motion.div>
             ))}
           </div>
@@ -210,7 +206,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          EXPLAINER VIDEO — 30s animated motion graphics
+          EXPLAINER VIDEO — DARK — 30s animated motion graphics
       ═══════════════════════════════════════════════════════════ */}
       <section className="py-20 lg:py-28">
         <div className="container">
@@ -249,18 +245,16 @@ export default function Home() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
       {/* ═══════════════════════════════════════════════════════════
-          FOUNDER STORY — Authentic narrative with asymmetric layout
+          FOUNDER STORY — WHITE/CREAM BACKGROUND — Authentic narrative
       ═══════════════════════════════════════════════════════════ */}
-      <section className="py-24 lg:py-36 overflow-hidden">
+      <section className="section-light py-24 lg:py-36 overflow-hidden">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             {/* Image with layered depth */}
             <SectionReveal direction="left">
               <div className="relative">
-                <div className="aspect-[4/3] overflow-hidden rounded-sm">
+                <div className="aspect-[4/3] overflow-hidden rounded-sm shadow-xl">
                   <motion.img
                     src={FOUNDER_IMG}
                     alt="Founders of Funding Clarity"
@@ -270,19 +264,19 @@ export default function Home() {
                   />
                 </div>
                 {/* Gold accent border offset */}
-                <div className="absolute -bottom-4 -right-4 w-full h-full border border-gold/20 rounded-sm -z-10" />
+                <div className="absolute -bottom-4 -right-4 w-full h-full border border-gold rounded-sm -z-10" />
                 {/* Floating label */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6, duration: 0.6 }}
-                  className="absolute -bottom-6 -left-2 lg:-left-6 bg-dark-card border border-gold/20 px-5 py-3 rounded-sm"
+                  className="absolute -bottom-6 -left-2 lg:-left-6 bg-white border border-gold/30 px-5 py-3 rounded-sm shadow-lg"
                 >
                   <span className="text-[10px] uppercase tracking-[0.2em] text-gold-dim block" style={{ fontFamily: "var(--font-mono)" }}>
                     Est. by founders
                   </span>
-                  <span className="text-sm text-warm-white font-semibold" style={{ fontFamily: "var(--font-display)" }}>
+                  <span className="text-sm text-dark font-semibold" style={{ fontFamily: "var(--font-display)" }}>
                     Who've been there.
                   </span>
                 </motion.div>
@@ -298,12 +292,12 @@ export default function Home() {
                 Our Story
               </span>
               <h2
-                className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.05] mb-8"
+                className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.05] mb-8 text-dark"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                We've been <span className="text-gold">exactly</span> where you are.
+                We've been <span className="text-gold-dim">exactly</span> where you are.
               </h2>
-              <div className="space-y-5 text-warm-white/70 leading-relaxed">
+              <div className="space-y-5 text-dark/70 leading-relaxed">
                 <p>
                   We had a profitable business, a solid plan, and a clear need for
                   funding to grow. We thought it would be straightforward.
@@ -317,7 +311,7 @@ export default function Home() {
                   It was frustrating, demoralising, and a colossal waste of time
                   we didn't have.
                 </p>
-                <p className="text-warm-white font-medium text-lg" style={{ fontFamily: "var(--font-display)" }}>
+                <p className="text-dark font-medium text-lg" style={{ fontFamily: "var(--font-display)" }}>
                   So we built a better way.
                 </p>
               </div>
@@ -325,7 +319,7 @@ export default function Home() {
                 <Link href="/about">
                   <motion.span
                     whileHover={{ x: 4 }}
-                    className="inline-flex items-center gap-2 text-gold hover:text-gold-bright transition-colors text-sm font-medium"
+                    className="inline-flex items-center gap-2 text-gold-dim hover:text-dark transition-colors text-sm font-medium"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     Read our full story <ArrowRight size={14} />
@@ -337,13 +331,10 @@ export default function Home() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
       {/* ═══════════════════════════════════════════════════════════
-          WHAT WE DO — 4-Question Framework with staggered cards
+          WHAT WE DO — DARK — 4-Question Framework with staggered cards
       ═══════════════════════════════════════════════════════════ */}
       <section className="py-24 lg:py-36 relative">
-        {/* Subtle background image */}
         <div className="absolute inset-0 opacity-[0.03]">
           <img src={FRAMEWORK_IMG} alt="" className="w-full h-full object-cover" />
         </div>
@@ -439,12 +430,10 @@ export default function Home() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
       {/* ═══════════════════════════════════════════════════════════
-          WHY APPLICATIONS FAIL — Reframe rejection
+          WHY APPLICATIONS FAIL — WHITE/CREAM — Reframe rejection
       ═══════════════════════════════════════════════════════════ */}
-      <section className="py-24 lg:py-36">
+      <section className="section-light py-24 lg:py-36">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <SectionReveal>
@@ -455,14 +444,14 @@ export default function Home() {
                 The Truth About Funding
               </span>
               <h2
-                className="text-4xl sm:text-5xl font-bold leading-tight mb-8"
+                className="text-4xl sm:text-5xl font-bold leading-tight mb-8 text-dark"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 It's not you.
                 <br />
-                <span className="text-gold">It's the system.</span>
+                <span className="text-gold-dim">It's the system.</span>
               </h2>
-              <div className="space-y-5 text-warm-white/70 leading-relaxed">
+              <div className="space-y-5 text-dark/70 leading-relaxed">
                 <p>
                   If you've been rejected for funding, it's easy to take it
                   personally. But the truth is, most applications fail for
@@ -484,7 +473,7 @@ export default function Home() {
                 <Link href="/why-applications-fail">
                   <motion.span
                     whileHover={{ x: 4 }}
-                    className="inline-flex items-center gap-2 text-gold hover:text-gold-bright transition-colors text-sm font-medium"
+                    className="inline-flex items-center gap-2 text-gold-dim hover:text-dark transition-colors text-sm font-medium"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     Understand why applications fail <ArrowRight size={14} />
@@ -511,14 +500,14 @@ export default function Home() {
                 <motion.div
                   key={i}
                   variants={staggerItem}
-                  whileHover={{ x: 4, borderColor: "oklch(0.82 0.12 85 / 0.2)" }}
+                  whileHover={{ x: 4 }}
                   className="glass-card p-5 rounded-sm flex items-start gap-4 group transition-all duration-300"
                 >
                   <XCircle
                     size={20}
-                    className="text-red-400/60 mt-0.5 shrink-0 group-hover:text-red-400 transition-colors"
+                    className="text-red-500/60 mt-0.5 shrink-0 group-hover:text-red-500 transition-colors"
                   />
-                  <span className="text-warm-white/70 group-hover:text-warm-white transition-colors">
+                  <span className="text-dark/70 group-hover:text-dark transition-colors">
                     {reason}
                   </span>
                 </motion.div>
@@ -528,26 +517,24 @@ export default function Home() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
       {/* ═══════════════════════════════════════════════════════════
-          WHO IS THIS FOR / NOT FOR — Qualify leads
+          WHO IS THIS FOR — GOLD BACKGROUND — Qualify leads
       ═══════════════════════════════════════════════════════════ */}
-      <section className="py-24 lg:py-36">
+      <section className="section-gold py-24 lg:py-36">
         <div className="container">
           <SectionReveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span
-                className="text-xs uppercase tracking-[0.3em] text-gold-dim mb-6 block"
+                className="text-xs uppercase tracking-[0.3em] text-dark/50 mb-6 block"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 Is This Right For You?
               </span>
               <h2
-                className="text-4xl sm:text-5xl font-bold leading-tight"
+                className="text-4xl sm:text-5xl font-bold leading-tight text-dark"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Honest about who we <span className="text-gold">can</span> help.
+                Honest about who we <span className="text-white">can</span> help.
               </h2>
             </div>
           </SectionReveal>
@@ -556,13 +543,13 @@ export default function Home() {
             <SectionReveal delay={0.1}>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="glass-card p-8 lg:p-10 rounded-sm h-full transition-all duration-300"
+                className="bg-white/80 backdrop-blur-md border border-dark/10 p-8 lg:p-10 rounded-sm h-full transition-all duration-300 shadow-lg"
               >
                 <h3
-                  className="text-lg font-semibold text-gold mb-6 flex items-center gap-3"
+                  className="text-lg font-semibold text-dark mb-6 flex items-center gap-3"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
-                  <CheckCircle size={22} />
+                  <CheckCircle size={22} className="text-green-600" />
                   This is for you if...
                 </h3>
                 <ul className="space-y-4">
@@ -573,8 +560,8 @@ export default function Home() {
                     "You value honesty and clarity over hype",
                     "You want to know where you stand before you apply",
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-warm-white/70">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gold mt-2.5 shrink-0" />
+                    <li key={i} className="flex items-start gap-3 text-dark/70">
+                      <span className="w-1.5 h-1.5 rounded-full bg-dark mt-2.5 shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -585,10 +572,10 @@ export default function Home() {
             <SectionReveal delay={0.25}>
               <motion.div
                 whileHover={{ y: -3 }}
-                className="glass-card p-8 lg:p-10 rounded-sm h-full border-white/[0.03] transition-all duration-300"
+                className="bg-white/50 backdrop-blur-md border border-dark/5 p-8 lg:p-10 rounded-sm h-full transition-all duration-300"
               >
                 <h3
-                  className="text-lg font-semibold text-warm-white/50 mb-6 flex items-center gap-3"
+                  className="text-lg font-semibold text-dark/60 mb-6 flex items-center gap-3"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   <XCircle size={22} />
@@ -601,8 +588,8 @@ export default function Home() {
                     "You want to be told what you want to hear, not what you need to know",
                     "You're after a magic bullet, not a clear plan",
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-warm-white/40">
-                      <span className="w-1.5 h-1.5 rounded-full bg-warm-white/20 mt-2.5 shrink-0" />
+                    <li key={i} className="flex items-start gap-3 text-dark/50">
+                      <span className="w-1.5 h-1.5 rounded-full bg-dark/30 mt-2.5 shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -613,10 +600,8 @@ export default function Home() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
       {/* ═══════════════════════════════════════════════════════════
-          HOW IT WORKS — 3 Steps with dramatic numbers
+          HOW IT WORKS — DARK — 3 Steps with dramatic numbers
       ═══════════════════════════════════════════════════════════ */}
       <section className="py-24 lg:py-36">
         <div className="container">
@@ -665,7 +650,6 @@ export default function Home() {
               },
             ].map((item, i) => (
               <motion.div key={i} variants={staggerItem} className="relative group">
-                {/* Step number */}
                 <span
                   className="text-[6rem] lg:text-[7rem] font-bold text-gold/8 group-hover:text-gold/15 transition-colors duration-700 block leading-none mb-2"
                   style={{ fontFamily: "var(--font-mono)" }}
@@ -681,7 +665,6 @@ export default function Home() {
                 <p className="text-warm-white/60 leading-relaxed">
                   {item.desc}
                 </p>
-                {/* Connecting line for desktop */}
                 {i < 2 && (
                   <div className="hidden md:block absolute top-16 -right-6 lg:-right-8 w-12 lg:w-16 h-px bg-gradient-to-r from-gold/20 to-transparent" />
                 )}
@@ -692,10 +675,9 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          PRIMARY CTA — Cinematic closing with parallax
+          PRIMARY CTA — DARK — Cinematic closing with parallax
       ═══════════════════════════════════════════════════════════ */}
       <section className="relative py-32 lg:py-44 overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0">
           <img
             src={CTA_BG}

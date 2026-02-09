@@ -1,12 +1,11 @@
 /**
  * DESIGN: "Dark Authority" — Why Applications Fail page
- * Educational, reframes rejection as structural
+ * Alternating dark/white/gold sections
  */
 
 import { Link } from "wouter";
 import { ArrowRight, AlertTriangle, Lightbulb } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
-import GoldLine from "@/components/GoldLine";
 
 const reasons = [
   {
@@ -38,7 +37,7 @@ const reasons = [
 export default function WhyApplicationsFail() {
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
-      {/* Page Hero */}
+      {/* Page Hero — DARK */}
       <section className="py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
@@ -56,14 +55,12 @@ export default function WhyApplicationsFail() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* Context */}
-      <section className="py-20 lg:py-28">
+      {/* Context — WHITE */}
+      <section className="section-light py-20 lg:py-28">
         <div className="container">
           <div className="max-w-3xl">
             <SectionReveal>
-              <div className="space-y-6 text-warm-white/70 leading-relaxed text-lg">
+              <div className="space-y-6 text-dark/70 leading-relaxed text-lg">
                 <p>
                   If you've been rejected for funding, the first thing to know is this: you're
                   not alone. Nearly half of all SME funding applications in the UK are declined.
@@ -86,9 +83,7 @@ export default function WhyApplicationsFail() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* Reasons */}
+      {/* Reasons — DARK */}
       <section className="py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
@@ -125,22 +120,20 @@ export default function WhyApplicationsFail() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* The Better Way */}
-      <section className="py-20 lg:py-28">
+      {/* The Better Way — GOLD */}
+      <section className="section-gold py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
-            <div className="glass-card p-10 lg:p-16 rounded-sm border-gold/10 max-w-4xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-md border border-dark/10 p-10 lg:p-16 rounded-sm max-w-4xl mx-auto shadow-lg">
               <div className="flex items-start gap-5">
-                <div className="shrink-0 w-12 h-12 rounded-sm bg-gold/10 flex items-center justify-center">
-                  <Lightbulb size={22} className="text-gold" />
+                <div className="shrink-0 w-12 h-12 rounded-sm bg-gold/20 flex items-center justify-center">
+                  <Lightbulb size={22} className="text-dark" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-warm-white mb-4" style={{ fontFamily: "var(--font-display)" }}>
+                  <h3 className="text-2xl font-bold text-dark mb-4" style={{ fontFamily: "var(--font-display)" }}>
                     There's a better way.
                   </h3>
-                  <div className="space-y-4 text-warm-white/70 leading-relaxed">
+                  <div className="space-y-4 text-dark/70 leading-relaxed">
                     <p>
                       Every single one of these failure points is avoidable — if you have the
                       right information before you apply. That's exactly what we provide.
@@ -153,7 +146,7 @@ export default function WhyApplicationsFail() {
                   </div>
                   <div className="mt-8">
                     <Link href="/contact">
-                      <span className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-dark font-semibold rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300" style={{ fontFamily: "var(--font-display)" }}>
+                      <span className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-warm-white font-semibold rounded-sm hover:bg-dark-elevated transition-all duration-300 shadow-lg" style={{ fontFamily: "var(--font-display)" }}>
                         Get Your Funding Plan <ArrowRight size={18} />
                       </span>
                     </Link>
