@@ -55,3 +55,10 @@
 - [x] Add subtle background music to final video
 - [x] Stitch all clips with new voiceover + music
 - [x] Deliver final video for YouTube upload
+
+## Phase 5 — Background Color Alternation
+- [ ] Alternate section backgrounds: dark, white, gold to break up all-black monotony
+- [ ] Match gold to the "Funding" logo color (#E8B931)
+- [ ] Ensure text contrast is correct on all backgrounds (dark text on light, light text on dark)
+- [ ] Apply same pattern to all subpages
+- [ ] Push updated code to GitHub

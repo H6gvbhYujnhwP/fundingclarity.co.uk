@@ -1,17 +1,16 @@
 /**
  * DESIGN: "Dark Authority" — How It Works page
- * 3 clear steps with cinematic reveals
+ * Alternating dark/white/gold sections
  */
 
 import { Link } from "wouter";
 import { ArrowRight, MessageCircle, Clock, Shield, Target } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
-import GoldLine from "@/components/GoldLine";
 
 export default function HowItWorks() {
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
-      {/* Page Hero */}
+      {/* Page Hero — DARK */}
       <section className="py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
@@ -28,24 +27,21 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* Steps Detail */}
-      <section className="py-20 lg:py-28">
+      {/* Step 1 — WHITE */}
+      <section className="section-light py-20 lg:py-28">
         <div className="container">
-          {/* Step 1 */}
           <SectionReveal>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-24 lg:mb-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
               <div className="lg:col-span-2">
-                <span className="text-8xl lg:text-9xl font-bold text-gold/15 block" style={{ fontFamily: "var(--font-mono)" }}>
+                <span className="text-8xl lg:text-9xl font-bold text-gold/30 block" style={{ fontFamily: "var(--font-mono)" }}>
                   01
                 </span>
               </div>
               <div className="lg:col-span-10">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-dark" style={{ fontFamily: "var(--font-display)" }}>
                   Tell us your story.
                 </h2>
-                <div className="space-y-5 text-warm-white/70 leading-relaxed text-lg max-w-3xl">
+                <div className="space-y-5 text-dark/70 leading-relaxed text-lg max-w-3xl">
                   <p>
                     Get in touch via our contact form or send us a direct message. Share a few
                     simple details about your business — what you do, how long you've been trading,
@@ -63,8 +59,8 @@ export default function HowItWorks() {
                     { icon: Shield, label: "No credit check" },
                     { icon: MessageCircle, label: "Real person responds" },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-warm-white/50">
-                      <item.icon size={16} className="text-gold/60" />
+                    <div key={i} className="flex items-center gap-2 text-sm text-dark/50">
+                      <item.icon size={16} className="text-gold" />
                       {item.label}
                     </div>
                   ))}
@@ -72,12 +68,14 @@ export default function HowItWorks() {
               </div>
             </div>
           </SectionReveal>
+        </div>
+      </section>
 
-          <GoldLine />
-
-          {/* Step 2 */}
+      {/* Step 2 — DARK */}
+      <section className="py-20 lg:py-28">
+        <div className="container">
           <SectionReveal>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start my-24 lg:my-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
               <div className="lg:col-span-2">
                 <span className="text-8xl lg:text-9xl font-bold text-gold/15 block" style={{ fontFamily: "var(--font-mono)" }}>
                   02
@@ -111,22 +109,24 @@ export default function HowItWorks() {
               </div>
             </div>
           </SectionReveal>
+        </div>
+      </section>
 
-          <GoldLine />
-
-          {/* Step 3 */}
+      {/* Step 3 — WHITE */}
+      <section className="section-light py-20 lg:py-28">
+        <div className="container">
           <SectionReveal>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start mt-24 lg:mt-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
               <div className="lg:col-span-2">
-                <span className="text-8xl lg:text-9xl font-bold text-gold/15 block" style={{ fontFamily: "var(--font-mono)" }}>
+                <span className="text-8xl lg:text-9xl font-bold text-gold/30 block" style={{ fontFamily: "var(--font-mono)" }}>
                   03
                 </span>
               </div>
               <div className="lg:col-span-10">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-dark" style={{ fontFamily: "var(--font-display)" }}>
                   Decide your next move.
                 </h2>
-                <div className="space-y-5 text-warm-white/70 leading-relaxed text-lg max-w-3xl">
+                <div className="space-y-5 text-dark/70 leading-relaxed text-lg max-w-3xl">
                   <p>
                     Armed with clarity, you choose the best path forward. That might mean
                     applying to a recommended lender straight away. It might mean strengthening
@@ -136,12 +136,12 @@ export default function HowItWorks() {
                     Either way, you'll know exactly where you stand — and you'll have a clear
                     plan for what to do next. The choice is always yours.
                   </p>
-                  <p className="text-warm-white font-medium" style={{ fontFamily: "var(--font-display)" }}>
+                  <p className="text-dark font-medium" style={{ fontFamily: "var(--font-display)" }}>
                     No pressure. No obligation. Just clarity.
                   </p>
                 </div>
-                <div className="mt-8 flex items-center gap-3 text-sm text-warm-white/50">
-                  <Target size={16} className="text-gold/60" />
+                <div className="mt-8 flex items-center gap-3 text-sm text-dark/50">
+                  <Target size={16} className="text-gold" />
                   Your decision. Your timeline. Your business.
                 </div>
               </div>
@@ -150,25 +150,25 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 lg:py-28 border-t border-white/5">
+      {/* CTA — GOLD */}
+      <section className="section-gold py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-dark" style={{ fontFamily: "var(--font-display)" }}>
                 Ready to take the first step?
               </h2>
-              <p className="text-lg text-warm-white/60 mb-10">
+              <p className="text-lg text-dark/70 mb-10">
                 It starts with a simple conversation. No forms, no fees, no commitment.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/contact">
-                  <span className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-dark font-semibold rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300" style={{ fontFamily: "var(--font-display)" }}>
+                  <span className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-warm-white font-semibold rounded-sm hover:bg-dark-elevated transition-all duration-300 shadow-lg" style={{ fontFamily: "var(--font-display)" }}>
                     Get Funding Clarity <ArrowRight size={18} />
                   </span>
                 </Link>
                 <Link href="/contact">
-                  <span className="inline-flex items-center gap-3 px-8 py-4 border border-warm-white/20 text-warm-white font-medium rounded-sm hover:border-gold/40 hover:text-gold transition-all duration-300" style={{ fontFamily: "var(--font-display)" }}>
+                  <span className="inline-flex items-center gap-3 px-8 py-4 border-2 border-dark/30 text-dark font-medium rounded-sm hover:border-dark hover:bg-dark/5 transition-all duration-300" style={{ fontFamily: "var(--font-display)" }}>
                     <MessageCircle size={18} /> Send a DM
                   </span>
                 </Link>

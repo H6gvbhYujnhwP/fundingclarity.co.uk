@@ -180,6 +180,30 @@
   .gold-glow:hover {
     box-shadow: 0 0 40px oklch(0.82 0.12 85 / 0.3), 0 0 80px oklch(0.82 0.12 85 / 0.15);
   }
+
+  /* Light section — white/cream background */
+  .section-light {
+    background: oklch(0.97 0.005 85);
+    color: oklch(0.15 0.005 285);
+  }
+
+  .section-light .glass-card {
+    background: oklch(1 0 0 / 0.7);
+    border: 1px solid oklch(0 0 0 / 8%);
+    backdrop-filter: blur(20px);
+  }
+
+  /* Gold section — brand gold background */
+  .section-gold {
+    background: oklch(0.82 0.12 85);
+    color: oklch(0.13 0.005 285);
+  }
+
+  .section-gold .glass-card {
+    background: oklch(0.88 0.1 85 / 0.5);
+    border: 1px solid oklch(0 0 0 / 10%);
+    backdrop-filter: blur(20px);
+  }
 }
 
 /* Smooth scrolling */

@@ -1,12 +1,11 @@
 /**
  * DESIGN: "Dark Authority" — Who Is This For page
- * Qualifying leads with confidence and authority
+ * Alternating dark/white/gold sections
  */
 
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle, XCircle } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
-import GoldLine from "@/components/GoldLine";
 
 const forYou = [
   {
@@ -49,7 +48,7 @@ const notForYou = [
 export default function WhoIsThisFor() {
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
-      {/* Page Hero */}
+      {/* Page Hero — DARK */}
       <section className="py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
@@ -67,17 +66,15 @@ export default function WhoIsThisFor() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* For You */}
-      <section className="py-20 lg:py-28">
+      {/* For You — WHITE */}
+      <section className="section-light py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center gap-4" style={{ fontFamily: "var(--font-display)" }}>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 flex items-center gap-4 text-dark" style={{ fontFamily: "var(--font-display)" }}>
               <CheckCircle size={28} className="text-gold" />
               This is for you if...
             </h2>
-            <p className="text-warm-white/50 mb-12 max-w-2xl">
+            <p className="text-dark/60 mb-12 max-w-2xl">
               If any of these describe your situation, we're well-placed to help.
             </p>
           </SectionReveal>
@@ -85,14 +82,14 @@ export default function WhoIsThisFor() {
           <div className="space-y-5">
             {forYou.map((item, i) => (
               <SectionReveal key={i} delay={i * 0.1}>
-                <div className="glass-card p-8 rounded-sm group hover:border-gold/20 transition-all duration-500">
+                <div className="bg-white border border-dark/10 shadow-sm p-8 rounded-sm group hover:border-gold/40 transition-all duration-500">
                   <div className="flex items-start gap-5">
                     <span className="shrink-0 w-2 h-2 rounded-full bg-gold mt-3" />
                     <div>
-                      <h3 className="text-lg font-semibold text-warm-white mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                      <h3 className="text-lg font-semibold text-dark mb-2" style={{ fontFamily: "var(--font-display)" }}>
                         {item.title}
                       </h3>
-                      <p className="text-warm-white/60 leading-relaxed">{item.desc}</p>
+                      <p className="text-dark/60 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -102,9 +99,7 @@ export default function WhoIsThisFor() {
         </div>
       </section>
 
-      <GoldLine className="container" />
-
-      {/* Not For You */}
+      {/* Not For You — DARK */}
       <section className="py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
@@ -137,19 +132,19 @@ export default function WhoIsThisFor() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 lg:py-28 border-t border-white/5">
+      {/* CTA — GOLD */}
+      <section className="section-gold py-20 lg:py-28">
         <div className="container">
           <SectionReveal>
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-dark" style={{ fontFamily: "var(--font-display)" }}>
                 See yourself in the first list?
               </h2>
-              <p className="text-lg text-warm-white/60 mb-10">
+              <p className="text-lg text-dark/70 mb-10">
                 Then let's talk. We built Funding Clarity specifically for founders like you.
               </p>
               <Link href="/contact">
-                <span className="inline-flex items-center gap-3 px-8 py-4 bg-gold text-dark font-semibold rounded-sm gold-glow hover:bg-gold-bright transition-all duration-300" style={{ fontFamily: "var(--font-display)" }}>
+                <span className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-warm-white font-semibold rounded-sm hover:bg-dark-elevated transition-all duration-300 shadow-lg" style={{ fontFamily: "var(--font-display)" }}>
                   Start a Conversation <ArrowRight size={18} />
                 </span>
               </Link>
