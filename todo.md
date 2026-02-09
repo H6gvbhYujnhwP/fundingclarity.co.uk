@@ -57,8 +57,17 @@
 - [x] Deliver final video for YouTube upload
 
 ## Phase 5 — Background Color Alternation
-- [ ] Alternate section backgrounds: dark, white, gold to break up all-black monotony
-- [ ] Match gold to the "Funding" logo color (#E8B931)
-- [ ] Ensure text contrast is correct on all backgrounds (dark text on light, light text on dark)
-- [ ] Apply same pattern to all subpages
-- [ ] Push updated code to GitHub
+- [x] Alternate section backgrounds: dark, white, gold to break up all-black monotony
+- [x] Match gold to the "Funding" logo color (#E8B931)
+- [x] Ensure text contrast is correct on all backgrounds (dark text on light, light text on dark)
+- [x] Apply same pattern to all subpages
+- [x] Push updated code to GitHub
+
+## Phase 6 — Render Deployment Fix
+- [x] Fix TypeError: Invalid URL on Render (missing Manus env vars causing tRPC/OAuth URL construction to fail)
+- [x] Push fix to GitHub
+
+## Phase 7 — Favicon
+- [x] Create custom favicon with gold (#E8B931) and black (#09090B) brand colours
+- [x] Install in Manus project and Render repo
+- [x] Push to GitHub
