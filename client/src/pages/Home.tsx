@@ -5,7 +5,6 @@
  * Font: Space Grotesk (display), Source Serif 4 (body), Space Mono (labels)
  */
 
-import { useAuth } from "@/_core/hooks/useAuth";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "wouter";
@@ -36,8 +35,6 @@ const staggerItem = {
 };
 
 export default function Home() {
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
-
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation(0.3);
   const smeCount = useCountUp(82, 2000, statsVisible);
   const declineRate = useCountUp(47, 2000, statsVisible);
