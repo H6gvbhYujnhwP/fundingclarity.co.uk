@@ -9,10 +9,15 @@ import { ArrowRight, Download, CheckCircle, Loader2, BookOpen } from "lucide-rea
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import SectionReveal from "@/components/SectionReveal";
+import Disclaimer from "@/components/Disclaimer";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
+import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
 
 const GUIDE_PDF_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663048135071/NIHdNuqffjtFiJjV.pdf";
 
 export default function LeadMagnet() {
+  useSEO(SEO_META.guide);
   const [formData, setFormData] = useState({ name: "", email: "", company: "" });
   const [downloaded, setDownloaded] = useState(false);
 
@@ -25,12 +30,16 @@ export default function LeadMagnet() {
       return;
     }
 
+    const tracking = getTrackingData();
+    addTimelineEvent("guide_download", "/guide");
+
     try {
       await leadMutation.mutateAsync({
         name: formData.name,
         email: formData.email,
         company: formData.company || undefined,
         source: "lead_magnet",
+        ...tracking,
       });
       setDownloaded(true);
       const link = document.createElement("a");
@@ -241,6 +250,13 @@ export default function LeadMagnet() {
               )}
             </SectionReveal>
           </div>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-12">
+        <div className="container max-w-3xl">
+          <Disclaimer />
         </div>
       </section>
     </div>

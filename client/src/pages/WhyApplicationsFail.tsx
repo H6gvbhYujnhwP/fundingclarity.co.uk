@@ -6,6 +6,8 @@
 import { Link } from "wouter";
 import { ArrowRight, AlertTriangle, Lightbulb } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
 
 const reasons = [
   {
@@ -35,6 +37,7 @@ const reasons = [
 ];
 
 export default function WhyApplicationsFail() {
+  useSEO(SEO_META.whyApplicationsFail);
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
       {/* Page Hero — DARK */}

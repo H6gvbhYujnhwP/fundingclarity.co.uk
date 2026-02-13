@@ -10,6 +10,10 @@ import { ArrowRight, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import SectionReveal from "@/components/SectionReveal";
+import Disclaimer from "@/components/Disclaimer";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
+import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
 
 type QuizStep = {
   id: string;
@@ -124,6 +128,7 @@ function getQuizResult(answers: Record<string, string>): { score: string; headli
 }
 
 export default function Quiz() {
+  useSEO(SEO_META.quiz);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showCapture, setShowCapture] = useState(false);
@@ -139,9 +144,14 @@ export default function Quiz() {
     const newAnswers = { ...answers, [step.id]: value };
     setAnswers(newAnswers);
 
+    // Track quiz progress
+    if (currentStep === 0) addTimelineEvent("quiz_start", "/quiz");
+    addTimelineEvent(`quiz_answer_${step.id}`, "/quiz");
+
     if (currentStep < QUIZ_STEPS.length - 1) {
       setTimeout(() => setCurrentStep(currentStep + 1), 300);
     } else {
+      addTimelineEvent("quiz_complete", "/quiz");
       setShowCapture(true);
     }
   };
@@ -154,6 +164,8 @@ export default function Quiz() {
     }
 
     const result = getQuizResult(answers);
+    const tracking = getTrackingData();
+    addTimelineEvent("lead_capture", "/quiz");
 
     try {
       await leadMutation.mutateAsync({
@@ -164,6 +176,7 @@ export default function Quiz() {
         source: "quiz",
         quizAnswers: JSON.stringify(answers),
         quizResult: JSON.stringify(result),
+        ...tracking,
       });
       setShowCapture(false);
       setShowResult(true);
@@ -454,6 +467,13 @@ export default function Quiz() {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-12">
+        <div className="container max-w-3xl">
+          <Disclaimer />
         </div>
       </section>
     </div>

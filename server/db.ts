@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, leads, bookings, type InsertLead, type InsertBooking } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -103,6 +103,19 @@ export async function getLeadsBySource(source: string) {
   return db.select().from(leads).where(eq(leads.source, source as any));
 }
 
+export async function getAllLeads() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(leads).orderBy(desc(leads.createdAt));
+}
+
+export async function getLeadById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(leads).where(eq(leads.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
 /* ─── Booking helpers ─── */
 
 export async function createBooking(booking: InsertBooking) {
@@ -115,5 +128,5 @@ export async function createBooking(booking: InsertBooking) {
 export async function getAllBookings() {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(bookings);
+  return db.select().from(bookings).orderBy(desc(bookings.createdAt));
 }

@@ -6,10 +6,15 @@
 import { useState } from "react";
 import { ArrowRight, MessageCircle, Mail, Send, Loader2 } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
+import Disclaimer from "@/components/Disclaimer";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
+import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
 
 export default function Contact() {
+  useSEO(SEO_META.contact);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,12 +32,16 @@ export default function Contact() {
       return;
     }
 
+    const tracking = getTrackingData();
+    addTimelineEvent("contact_submit", "/contact");
+
     try {
       await leadMutation.mutateAsync({
         name: formData.name,
         email: formData.email,
         company: formData.company || undefined,
         source: "contact",
+        ...tracking,
       });
       setSubmitted(true);
     } catch {
@@ -274,6 +283,13 @@ export default function Contact() {
               </div>
             </SectionReveal>
           </div>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-12">
+        <div className="container max-w-3xl">
+          <Disclaimer />
         </div>
       </section>
     </div>

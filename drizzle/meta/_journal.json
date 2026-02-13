@@ -15,6 +15,13 @@
       "when": 1770389461400,
       "tag": "0001_kind_luminals",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1770974135574,
+      "tag": "0002_flat_tusk",
+      "breakpoints": true
     }
   ]
 }

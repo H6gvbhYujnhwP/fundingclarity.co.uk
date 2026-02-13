@@ -14,6 +14,12 @@ import { useState } from "react";
 import SectionReveal from "@/components/SectionReveal";
 import GoldLine from "@/components/GoldLine";
 import { useScrollAnimation, useCountUp } from "@/hooks/useScrollAnimation";
+import Testimonials from "@/components/Testimonials";
+import FeaturedIn from "@/components/FeaturedIn";
+import TransparencySection from "@/components/TransparencySection";
+import FrameworkBadge from "@/components/FrameworkBadge";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
 
 const HERO_BG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-1_1770386059000_na1fn_aGVyby1iZw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTFfMTc3MDM4NjA1OTAwMF9uYTFmbl9hR1Z5YnkxaVp3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=VaqoytSFNMCvrJDsLDDrxLRqreiVSbnVf-CVqjMg6DqFHftvsz-V~DjP-rWyU99fLYrYE0yh6YX153JYIHEhI6-SlJTwWRvMoTEE~FI7cI1hdQwhdpeZxzlyG4i9qI1AcJaGKBLAR~rEkneelyA45Xi-OgoEW6~Irg9CAYptvaZPUSfYcFf2tviUKgMrJNz3~9b16xN-Yh3efUCzrDSXwZHNZ2H67~Nt9-yX61X4L4U2bBnKccjosmX5TSQ7j3XJ89gPBFuNFr6IX2LeGMwNY9jz9DaaLRVaVa71KmkVuBIuayGSCcsJFGbC1dkJiJQV0o5OC4UFiX1qA8K-lWX1BQ__";
 
@@ -36,6 +42,7 @@ const staggerItem = {
 };
 
 export default function Home() {
+  useSEO(SEO_META.home);
   let { user, loading, error, isAuthenticated, logout } = useAuth();
 
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation(0.3);
@@ -671,6 +678,37 @@ export default function Home() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          SOCIAL PROOF — Testimonials
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="section-light py-24 lg:py-36">
+        <div className="container">
+          <SectionReveal>
+            <Testimonials />
+          </SectionReveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          FEATURED IN — Logo strip
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="py-16 lg:py-20">
+        <div className="container">
+          <FeaturedIn />
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          TRANSPARENCY — How We Get Paid
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="section-light py-24 lg:py-36">
+        <div className="container">
+          <SectionReveal>
+            <TransparencySection />
+          </SectionReveal>
         </div>
       </section>
 

@@ -6,7 +6,11 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import { getLoginUrl } from "./const";
+import { initTracking } from "@/lib/tracking";
 import "./index.css";
+
+// Initialise UTM capture, referrer tracking, and page view timeline
+initTracking();
 
 const queryClient = new QueryClient();
 

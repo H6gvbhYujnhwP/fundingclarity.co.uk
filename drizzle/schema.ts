@@ -19,7 +19,8 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
 /**
- * Leads captured from the funding readiness quiz and lead magnet downloads.
+ * Leads captured from the funding readiness quiz, lead magnet downloads,
+ * contact form, and booking requests.
  */
 export const leads = mysqlTable("leads", {
   id: int("id").autoincrement().primaryKey(),
@@ -33,6 +34,19 @@ export const leads = mysqlTable("leads", {
   quizResult: text("quizResult"),
   // Sendy sync status
   sendySynced: int("sendySynced").default(0).notNull(),
+  // ── UTM attribution fields ──
+  utmSource: varchar("utmSource", { length: 255 }),
+  utmMedium: varchar("utmMedium", { length: 255 }),
+  utmCampaign: varchar("utmCampaign", { length: 255 }),
+  utmTerm: varchar("utmTerm", { length: 255 }),
+  utmContent: varchar("utmContent", { length: 255 }),
+  referrer: varchar("referrer", { length: 512 }),
+  // ── Lead timeline (JSON array of {event, path, timestamp}) ──
+  leadTimeline: text("leadTimeline"),
+  // ── Segmentation tags (JSON array of strings) ──
+  tags: text("tags"),
+  // ── Lead quality score (0–100) ──
+  qualityScore: int("qualityScore"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
@@ -52,6 +66,13 @@ export const bookings = mysqlTable("bookings", {
   preferredTime: varchar("preferredTime", { length: 32 }),
   message: text("message"),
   status: mysqlEnum("status", ["pending", "confirmed", "completed", "cancelled"]).default("pending").notNull(),
+  // ── UTM attribution fields ──
+  utmSource: varchar("utmSource", { length: 255 }),
+  utmMedium: varchar("utmMedium", { length: 255 }),
+  utmCampaign: varchar("utmCampaign", { length: 255 }),
+  utmTerm: varchar("utmTerm", { length: 255 }),
+  utmContent: varchar("utmContent", { length: 255 }),
+  referrer: varchar("referrer", { length: 512 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

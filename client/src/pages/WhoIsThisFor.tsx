@@ -6,6 +6,8 @@
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle, XCircle } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
 
 const forYou = [
   {
@@ -46,6 +48,7 @@ const notForYou = [
 ];
 
 export default function WhoIsThisFor() {
+  useSEO(SEO_META.whoIsThisFor);
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
       {/* Page Hero — DARK */}

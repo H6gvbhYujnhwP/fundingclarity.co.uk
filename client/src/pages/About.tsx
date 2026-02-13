@@ -6,10 +6,13 @@
 import { Link } from "wouter";
 import { ArrowRight, Quote } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
 
 const FOUNDER_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-2_1770386059000_na1fn_Zm91bmRlci1zdG9yeQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTJfMTc3MDM4NjA1OTAwMF9uYTFmbl9abTkxYm1SbGNpMXpkRzl5ZVEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=hAXmlFC-zOP0kvhgEb1Adrgh4-gBuO-nWfkhgZIFyMf7WHZh04SgH82ZQGi3b1KJdu-gBn-hPgw7Pj1b~7FplhrMpDxk64qQxr8G1D0kF6ydq2g5Y79ZJCS79BQ-tsEElIn2NItEcyzxEphwo1ijRWPSw2jGYO~6ooXObo1ZiArsa18nfd5LmzNjrnxjYykSKEBoqwijC8F3dwccBhjZAr-~VC3ERYomeYtCYNjBbTfzlavDOin2YeNYX5fItrKXfsGXuJYCEYuDLCdPKM1p3Cx7qh2y6IIPzsKYiP~-ujlY9Up1fSvKSnZH14L1fwM5nSS7bG5d9P5SJ2efjsA6fQ__";
 
 export default function About() {
+  useSEO(SEO_META.about);
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
       {/* Page Hero — DARK */}

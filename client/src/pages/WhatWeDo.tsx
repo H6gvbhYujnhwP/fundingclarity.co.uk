@@ -6,6 +6,8 @@
 import { Link } from "wouter";
 import { ArrowRight, Search, Clock, PoundSterling, Users } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
 
 const FRAMEWORK_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/Tl0cdcrJhuXUKXtl4z7ePw/sandbox/aWOv8CFwd5NZqyPIUBcdgf-img-3_1770386053000_na1fn_ZnJhbWV3b3JrLWFic3RyYWN0.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvVGwwY2RjckpodVhVS1h0bDR6N2VQdy9zYW5kYm94L2FXT3Y4Q0Z3ZDVOWnF5UElVQmNkZ2YtaW1nLTNfMTc3MDM4NjA1MzAwMF9uYTFmbl9abkpoYldWM2IzSnJMV0ZpYzNSeVlXTjAuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=NppkdQzXXlvQcqnvqx1I7F-XhFgpqvEkBmbVav80nrlEalC0JVxTfUHi6BKOTne4G3FMbwGPcWoit2J0qa6-5fjACJhHtO8D4k893zukHeGn-z0ljQ4gLcmbwFrj2SEXPZXAclFO3QfagZ1xZnBUDpEPR80D0Kd7zyyR0H6~2hodcCv3fnHFVv1M0muB8nLSqwZz5Jy9D9QxcbSt-zVJm1cxD-kIkpoRzNUHRVqsF4Iza2JjnTOy0Z1fNcul0Eh3K2jef3-whPUNRVkNr8i3HO5L~3E-lN-OmIBCrC00rVVheXxSxhplpn0S~1N5lScoCVNCzhWyXMebf2L7bqclsw__";
 
@@ -41,6 +43,7 @@ const questions = [
 ];
 
 export default function WhatWeDo() {
+  useSEO(SEO_META.whatWeDo);
   return (
     <div className="min-h-screen pt-20 lg:pt-24">
       {/* Page Hero — DARK */}

@@ -9,6 +9,10 @@ import { ArrowRight, Calendar, Clock, CheckCircle, Loader2 } from "lucide-react"
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import SectionReveal from "@/components/SectionReveal";
+import Disclaimer from "@/components/Disclaimer";
+import { useSEO } from "@/hooks/useSEO";
+import { SEO_META } from "@/lib/seoConfig";
+import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
 
 const TIME_SLOTS = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -17,6 +21,7 @@ const TIME_SLOTS = [
 ];
 
 export default function Booking() {
+  useSEO(SEO_META.booking);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,6 +42,9 @@ export default function Booking() {
       return;
     }
 
+    const tracking = getTrackingData();
+    addTimelineEvent("booking_submit", "/booking");
+
     try {
       await bookingMutation.mutateAsync({
         name: formData.name,
@@ -46,6 +54,7 @@ export default function Booking() {
         preferredDate: formData.preferredDate || undefined,
         preferredTime: formData.preferredTime || undefined,
         message: formData.message || undefined,
+        ...tracking,
       });
       setSubmitted(true);
     } catch {
@@ -299,6 +308,13 @@ export default function Booking() {
               </p>
             </form>
           </div>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-12">
+        <div className="container max-w-3xl">
+          <Disclaimer />
         </div>
       </section>
     </div>

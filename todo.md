@@ -71,3 +71,41 @@
 - [x] Create custom favicon with gold (#E8B931) and black (#09090B) brand colours
 - [x] Install in Manus project and Render repo
 - [x] Push to GitHub
+
+## Phase 8 — Marketing & Brand Growth Features
+
+### SEO + Trust Infrastructure
+- [x] Add meta titles + descriptions for every route
+- [x] Add OpenGraph and Twitter card metadata for every route
+- [x] Add XML sitemap and robots.txt
+- [x] Add "How we get paid" transparency section (reusable component)
+- [x] Add "We are not a lender" disclaimer block on relevant pages
+
+### Conversion Tracking + Attribution
+- [x] Add UTM capture (utm_source, utm_medium, utm_campaign, utm_term, utm_content)
+- [x] Persist UTM parameters in localStorage for 30 days
+- [x] Store UTM fields on every lead and booking submission in DB
+- [x] Add referrer tracking
+- [x] Add lead timeline field (page path → quiz start → quiz completion → lead capture)
+
+### Lead Segmentation + Tagging
+- [x] Create segmentation system with tags (startup, low_revenue, high_revenue, urgent, previously_declined, first_time_applicant)
+- [x] Store tags as JSON array in leads table
+- [x] Add lead quality score (0–100) based on quiz + urgency
+
+### Admin Dashboard
+- [x] Add protected /admin route (Manus OAuth admin role)
+- [x] Show Leads table with filters (date range, source, tags, score)
+- [x] Show Bookings table with filters
+- [x] Lead detail view (quiz answers, UTM, result text, created date)
+- [x] CSV export of leads
+
+### Social Proof + Authority
+- [x] Add testimonials component with placeholder data (3–6 entries)
+- [x] Add "Featured In" logo strip (placeholders)
+- [x] Add "Funding Clarity Framework" badge component
+
+### Final
+- [x] Update tests and ensure all pass (23 tests, 3 test files)
+- [x] Update README documentation
+- [x] Save checkpoint
