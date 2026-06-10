@@ -68,4 +68,16 @@ export const SEO_META: Record<string, { title: string; description: string; path
     description: "Funding Clarity admin dashboard — manage leads, bookings, and analytics.",
     path: "/admin",
   },
+  privacy: {
+    title: "Privacy Policy",
+    description:
+      "How Funding Clarity collects, uses, and protects your personal data. Covers UK GDPR, PECR, Meta Pixel tracking, cookies, and your data rights.",
+    path: "/privacy",
+  },
+  terms: {
+    title: "Terms of Service",
+    description:
+      "Terms of Service for Funding Clarity. Important regulatory notices, limitation of liability, intellectual property, and governing law.",
+    path: "/terms",
+  },
 };

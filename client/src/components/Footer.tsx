@@ -71,14 +71,20 @@ export default function Footer() {
             className="text-xs text-warm-white/30"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            Funding Clarity Ltd. Registered in England & Wales.
+            © {new Date().getFullYear()} THEGREENAGENTS.COM LTD trading as Funding Clarity. Registered in England & Wales.
           </p>
-          <p
-            className="text-xs text-warm-white/30"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            Built by founders, for founders.
-          </p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy">
+              <span className="text-xs text-warm-white/30 hover:text-gold transition-colors duration-300" style={{ fontFamily: "var(--font-mono)" }}>
+                Privacy Policy
+              </span>
+            </Link>
+            <Link href="/terms">
+              <span className="text-xs text-warm-white/30 hover:text-gold transition-colors duration-300" style={{ fontFamily: "var(--font-mono)" }}>
+                Terms of Service
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

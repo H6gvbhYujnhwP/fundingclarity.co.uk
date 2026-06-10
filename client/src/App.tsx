@@ -15,6 +15,8 @@ import Quiz from "./pages/Quiz";
 import Booking from "./pages/Booking";
 import LeadMagnet from "./pages/LeadMagnet";
 import Admin from "./pages/Admin";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -33,6 +35,8 @@ function Router() {
       <Route path={"/guide"} component={LeadMagnet} />
       {/* make sure to consider if you need authentication for certain routes */}
       <Route path={"/admin"} component={Admin} />
+      <Route path={"/privacy"} component={PrivacyPolicy} />
+      <Route path={"/terms"} component={TermsOfService} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

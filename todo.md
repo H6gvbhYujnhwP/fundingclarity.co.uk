@@ -109,3 +109,11 @@
 - [x] Update tests and ensure all pass (23 tests, 3 test files)
 - [x] Update README documentation
 - [x] Save checkpoint
+
+## Phase 9 — Legal Pages
+- [x] Create Privacy Policy page (UK GDPR, PECR, Meta Pixel, cookies, data collection)
+- [x] Create Terms of Service page (FCA disclaimer, limitation of liability, acceptable use)
+- [x] Add routes for /privacy and /terms
+- [x] Add footer links to Privacy Policy and Terms of Service
+- [x] Update SEO config for new pages
+- [x] Push to GitHub (via Manus export — GitHub connector not available in sandbox)

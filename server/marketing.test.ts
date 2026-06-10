@@ -1,6 +1,23 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
+
+// Mock the db module so we don't need a real database connection
+vi.mock("./db", () => ({
+  createLead: vi.fn().mockResolvedValue(99),
+  createBooking: vi.fn().mockResolvedValue(88),
+  getAllLeads: vi.fn().mockResolvedValue([]),
+  getAllBookings: vi.fn().mockResolvedValue([]),
+  getLeadById: vi.fn().mockResolvedValue(undefined),
+  upsertUser: vi.fn(),
+  getUserByOpenId: vi.fn(),
+  getDb: vi.fn().mockResolvedValue(null),
+}));
+
+// Mock the notification module
+vi.mock("./_core/notification", () => ({
+  notifyOwner: vi.fn().mockResolvedValue(true),
+}));
 
 /* ─── Helper: create a mock context ─── */
 function createPublicContext(): TrpcContext {
@@ -67,53 +84,48 @@ describe("Lead submission with UTM and segmentation", () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
 
-    // This will fail with DB error in test env, but validates input schema
-    try {
-      await caller.lead.submit({
-        name: "Test User",
-        email: "test@example.com",
-        company: "Test Ltd",
-        phone: "07123456789",
-        source: "quiz",
-        quizAnswers: JSON.stringify({
-          business_type: "ltd",
-          annual_revenue: "1m_5m",
-          funding_amount: "100k_500k",
-          timeline: "soon",
-          previous_applications: "approved",
-        }),
-        quizResult: JSON.stringify({ score: "Strong", headline: "Test" }),
-        utmSource: "google",
-        utmMedium: "cpc",
-        utmCampaign: "spring_2026",
-        utmTerm: "business+funding",
-        utmContent: "ad_v1",
-        referrer: "https://google.com",
-        leadTimeline: JSON.stringify([
-          { event: "page_view", path: "/", timestamp: Date.now() },
-          { event: "quiz_start", path: "/quiz", timestamp: Date.now() },
-        ]),
-      });
-    } catch (err: any) {
-      // DB not available in test — that's expected
-      // We're validating that the input schema accepts all UTM fields
-      expect(err.message).toContain("Database");
-    }
+    const result = await caller.lead.submit({
+      name: "Test User",
+      email: "test@example.com",
+      company: "Test Ltd",
+      phone: "07123456789",
+      source: "quiz",
+      quizAnswers: JSON.stringify({
+        business_type: "ltd",
+        annual_revenue: "1m_5m",
+        funding_amount: "100k_500k",
+        timeline: "soon",
+        previous_applications: "approved",
+      }),
+      quizResult: JSON.stringify({ score: "Strong", headline: "Test" }),
+      utmSource: "google",
+      utmMedium: "cpc",
+      utmCampaign: "spring_2026",
+      utmTerm: "business+funding",
+      utmContent: "ad_v1",
+      referrer: "https://google.com",
+      leadTimeline: JSON.stringify([
+        { event: "page_view", path: "/", timestamp: Date.now() },
+        { event: "quiz_start", path: "/quiz", timestamp: Date.now() },
+      ]),
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.leadId).toBe(99);
   });
 
   it("accepts a contact lead without optional fields", async () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
 
-    try {
-      await caller.lead.submit({
-        name: "Simple Lead",
-        email: "simple@example.com",
-        source: "contact",
-      });
-    } catch (err: any) {
-      expect(err.message).toContain("Database");
-    }
+    const result = await caller.lead.submit({
+      name: "Simple Lead",
+      email: "simple@example.com",
+      source: "contact",
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.leadId).toBe(99);
   });
 
   it("rejects lead with invalid email", async () => {
@@ -161,26 +173,25 @@ describe("Booking submission with UTM", () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
 
-    try {
-      await caller.booking.submit({
-        name: "Booking Test",
-        email: "booking@example.com",
-        company: "Test Co",
-        phone: "07999888777",
-        preferredDate: "2026-03-15",
-        preferredTime: "10:00",
-        message: "Need funding for expansion",
-        utmSource: "linkedin",
-        utmMedium: "social",
-        utmCampaign: "q1_outreach",
-        referrer: "https://linkedin.com",
-        leadTimeline: JSON.stringify([
-          { event: "page_view", path: "/booking", timestamp: Date.now() },
-        ]),
-      });
-    } catch (err: any) {
-      expect(err.message).toContain("Database");
-    }
+    const result = await caller.booking.submit({
+      name: "Booking Test",
+      email: "booking@example.com",
+      company: "Test Co",
+      phone: "07999888777",
+      preferredDate: "2026-03-15",
+      preferredTime: "10:00",
+      message: "Need funding for expansion",
+      utmSource: "linkedin",
+      utmMedium: "social",
+      utmCampaign: "q1_outreach",
+      referrer: "https://linkedin.com",
+      leadTimeline: JSON.stringify([
+        { event: "page_view", path: "/booking", timestamp: Date.now() },
+      ]),
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.bookingId).toBe(88);
   });
 
   it("rejects booking with invalid email", async () => {
@@ -201,23 +212,16 @@ describe("Admin procedures access control", () => {
     const ctx = createAdminContext();
     const caller = appRouter.createCaller(ctx);
 
-    try {
-      await caller.admin.leads({});
-    } catch (err: any) {
-      // DB not available — but should not be FORBIDDEN
-      expect(err.code).not.toBe("FORBIDDEN");
-    }
+    const result = await caller.admin.leads({});
+    expect(result).toEqual([]);
   });
 
   it("admin can access bookings list", async () => {
     const ctx = createAdminContext();
     const caller = appRouter.createCaller(ctx);
 
-    try {
-      await caller.admin.bookings({});
-    } catch (err: any) {
-      expect(err.code).not.toBe("FORBIDDEN");
-    }
+    const result = await caller.admin.bookings({});
+    expect(result).toEqual([]);
   });
 
   it("non-admin user is blocked from admin leads", async () => {
