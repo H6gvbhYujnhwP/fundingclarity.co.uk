@@ -3,7 +3,7 @@
  * Alternating dark/white sections
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, CheckCircle, Loader2, BookOpen } from "lucide-react";
 import { trpc } from "@/lib/trpc";
@@ -13,11 +13,15 @@ import Disclaimer from "@/components/Disclaimer";
 import { useSEO } from "@/hooks/useSEO";
 import { SEO_META } from "@/lib/seoConfig";
 import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
+import { trackViewContent, trackLead } from "@/lib/pixel";
 
 const GUIDE_PDF_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663048135071/NIHdNuqffjtFiJjV.pdf";
 
 export default function LeadMagnet() {
   useSEO(SEO_META.guide);
+  useEffect(() => {
+    trackViewContent({ content_name: "Free Funding Guide", content_category: "Lead Magnet" });
+  }, []);
   const [formData, setFormData] = useState({ name: "", email: "", company: "" });
   const [downloaded, setDownloaded] = useState(false);
 
@@ -41,6 +45,7 @@ export default function LeadMagnet() {
         source: "lead_magnet",
         ...tracking,
       });
+      trackLead({ content_name: "Guide Download" });
       setDownloaded(true);
       const link = document.createElement("a");
       link.href = GUIDE_PDF_URL;

@@ -117,3 +117,11 @@
 - [x] Add footer links to Privacy Policy and Terms of Service
 - [x] Update SEO config for new pages
 - [x] Push to GitHub (via Manus export — GitHub connector not available in sandbox)
+
+## Phase 10 — Meta Pixel Integration
+- [x] Install Meta Pixel base code (ID: 1773697086950899)
+- [x] Create pixel helper utility with typed conversion events
+- [x] Fire ViewContent on quiz/guide/booking page views
+- [x] Fire Lead on quiz completion, guide download, contact form submission
+- [x] Fire Schedule on booking form submission
+- [x] Push to GitHub

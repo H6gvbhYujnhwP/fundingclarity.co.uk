@@ -4,7 +4,7 @@
  * Alternating dark/white sections
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
@@ -14,6 +14,7 @@ import Disclaimer from "@/components/Disclaimer";
 import { useSEO } from "@/hooks/useSEO";
 import { SEO_META } from "@/lib/seoConfig";
 import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
+import { trackViewContent, trackLead, trackCompleteRegistration } from "@/lib/pixel";
 
 type QuizStep = {
   id: string;
@@ -129,6 +130,9 @@ function getQuizResult(answers: Record<string, string>): { score: string; headli
 
 export default function Quiz() {
   useSEO(SEO_META.quiz);
+  useEffect(() => {
+    trackViewContent({ content_name: "Funding Readiness Quiz", content_category: "Quiz" });
+  }, []);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showCapture, setShowCapture] = useState(false);
@@ -152,6 +156,7 @@ export default function Quiz() {
       setTimeout(() => setCurrentStep(currentStep + 1), 300);
     } else {
       addTimelineEvent("quiz_complete", "/quiz");
+      trackCompleteRegistration({ content_name: "Quiz Completion" });
       setShowCapture(true);
     }
   };
@@ -178,6 +183,7 @@ export default function Quiz() {
         quizResult: JSON.stringify(result),
         ...tracking,
       });
+      trackLead({ content_name: "Quiz Lead Capture" });
       setShowCapture(false);
       setShowResult(true);
     } catch {

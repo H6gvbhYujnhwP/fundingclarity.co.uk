@@ -3,7 +3,7 @@
  * Alternating dark/white sections
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
@@ -13,6 +13,7 @@ import Disclaimer from "@/components/Disclaimer";
 import { useSEO } from "@/hooks/useSEO";
 import { SEO_META } from "@/lib/seoConfig";
 import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
+import { trackViewContent, trackSchedule } from "@/lib/pixel";
 
 const TIME_SLOTS = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -22,6 +23,9 @@ const TIME_SLOTS = [
 
 export default function Booking() {
   useSEO(SEO_META.booking);
+  useEffect(() => {
+    trackViewContent({ content_name: "Book a Clarity Call", content_category: "Booking" });
+  }, []);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -56,6 +60,7 @@ export default function Booking() {
         message: formData.message || undefined,
         ...tracking,
       });
+      trackSchedule({ content_name: "Clarity Call Booking" });
       setSubmitted(true);
     } catch {
       toast.error("Something went wrong. Please try again or email us directly.");

@@ -3,7 +3,7 @@
  * Alternating dark/white sections
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, MessageCircle, Mail, Send, Loader2 } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import Disclaimer from "@/components/Disclaimer";
@@ -12,9 +12,13 @@ import { toast } from "sonner";
 import { useSEO } from "@/hooks/useSEO";
 import { SEO_META } from "@/lib/seoConfig";
 import { getTrackingData, addTimelineEvent } from "@/lib/tracking";
+import { trackViewContent, trackLead } from "@/lib/pixel";
 
 export default function Contact() {
   useSEO(SEO_META.contact);
+  useEffect(() => {
+    trackViewContent({ content_name: "Contact Page", content_category: "Contact" });
+  }, []);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,6 +47,7 @@ export default function Contact() {
         source: "contact",
         ...tracking,
       });
+      trackLead({ content_name: "Contact Form Submission" });
       setSubmitted(true);
     } catch {
       toast.error("Something went wrong. Please try again or email us directly at hello@fundingclarity.co.uk");
